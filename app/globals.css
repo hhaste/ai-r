@@ -499,6 +499,18 @@ h1 {
   line-height: 1.4;
 }
 
+.setting-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+  color: var(--text-soft);
+}
+
+.setting-stack-first {
+  margin-top: 0;
+}
+
 .setting-label {
   font-size: 0.9rem;
 }
@@ -512,6 +524,37 @@ h1 {
   color: var(--text-main);
   font: inherit;
   text-align: center;
+}
+
+.setting-select {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(142, 227, 255, 0.18);
+  background: rgba(5, 16, 24, 0.44);
+  color: var(--text-main);
+  font: inherit;
+  appearance: none;
+}
+
+.setting-select-wrap {
+  position: relative;
+  display: block;
+}
+
+.setting-select-icon {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: var(--accent);
+  font-size: 0.86rem;
+  line-height: 1;
+  pointer-events: none;
+}
+
+.setting-select-wrap .setting-select {
+  padding-left: 34px;
 }
 
 .setting-input:disabled {

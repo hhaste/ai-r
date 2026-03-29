@@ -9,9 +9,11 @@ const JSON_HEADERS = {
   "Cache-Control": "no-store"
 }
 
-export async function GET() {
+export async function GET(request) {
   try {
-    const payload = await buildFeedPayload()
+    const { searchParams } = new URL(request.url)
+    const airspaceId = searchParams.get("airspace")
+    const payload = await buildFeedPayload(airspaceId || undefined)
     return NextResponse.json(payload, {
       headers: JSON_HEADERS
     })

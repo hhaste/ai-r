@@ -3,9 +3,16 @@
 import { useEffect, useRef, useState } from "react"
 
 import { ADVISORIES_UPDATED_EVENT } from "../lib/advisory-events"
+import {
+  AIRSPACE_PRESETS,
+  AIRSPACE_SETTINGS_STORAGE_KEY,
+  DEFAULT_AIRSPACE_ID,
+  getAirspaceLiveAtcStreamUrl,
+  getAirspacePresetById,
+  getAirspacePresetLabel
+} from "../lib/airspace-presets"
 import { mountFlightViewer } from "../lib/flight-viewer-runtime"
 
-const LIVE_ATC_STREAM_URL = "https://d.liveatc.net/kdtw_app"
 const ADVISORY_TTS_ENDPOINT = "/api/advisory-tts"
 const DEFAULT_ATC_AUDIO_VOLUME = 1
 const DUCKED_ATC_AUDIO_VOLUME = 0.2
@@ -147,6 +154,23 @@ async function readAdvisorySpeechError(response) {
   }
 }
 
+function loadStoredAirspaceId() {
+  if (typeof window === "undefined") {
+    return DEFAULT_AIRSPACE_ID
+  }
+
+  try {
+    const rawValue = window.localStorage.getItem(AIRSPACE_SETTINGS_STORAGE_KEY)
+    if (!rawValue) {
+      return DEFAULT_AIRSPACE_ID
+    }
+
+    return getAirspacePresetById(JSON.parse(rawValue)?.selectedAirspaceId).id
+  } catch {
+    return DEFAULT_AIRSPACE_ID
+  }
+}
+
 export default function FlightViewerClient() {
   const canvasRef = useRef(null)
   const audioRef = useRef(null)
@@ -161,6 +185,7 @@ export default function FlightViewerClient() {
   const flightSearchInputRef = useRef(null)
   const hudPanelRef = useRef(null)
   const collapseButtonRef = useRef(null)
+  const airspaceSelectRef = useRef(null)
   const terrainToggleRef = useRef(null)
   const weatherToggleRef = useRef(null)
   const autoRefreshToggleRef = useRef(null)
@@ -177,7 +202,11 @@ export default function FlightViewerClient() {
   const currentSpeechItemRef = useRef(null)
   const isSpeakingRef = useRef(false)
   const isAudioMutedRef = useRef(true)
+  const [selectedAirspaceId, setSelectedAirspaceId] = useState(DEFAULT_AIRSPACE_ID)
+  const [isViewerReady, setIsViewerReady] = useState(false)
   const [isAudioMuted, setIsAudioMuted] = useState(true)
+  const selectedAirspacePreset = getAirspacePresetById(selectedAirspaceId)
+  const liveAtcStreamUrl = getAirspaceLiveAtcStreamUrl(selectedAirspacePreset)
 
   function restoreAtcAudioLevel() {
     const audio = audioRef.current
@@ -464,6 +493,15 @@ export default function FlightViewerClient() {
   }, [])
 
   useEffect(() => {
+    setSelectedAirspaceId(loadStoredAirspaceId())
+    setIsViewerReady(true)
+  }, [])
+
+  useEffect(() => {
+    if (!isViewerReady) {
+      return
+    }
+
     const cleanup = mountFlightViewer({
       canvas: canvasRef.current,
       refreshButton: refreshButtonRef.current,
@@ -477,6 +515,7 @@ export default function FlightViewerClient() {
       flightSearchInput: flightSearchInputRef.current,
       hudPanel: hudPanelRef.current,
       collapseButton: collapseButtonRef.current,
+      airspaceSelect: airspaceSelectRef.current,
       terrainToggle: terrainToggleRef.current,
       weatherToggle: weatherToggleRef.current,
       autoRefreshToggle: autoRefreshToggleRef.current,
@@ -486,22 +525,25 @@ export default function FlightViewerClient() {
     })
 
     return cleanup
-  }, [])
+  }, [isViewerReady])
 
   useEffect(() => {
     const audio = audioRef.current
-    if (!audio) {
+    if (!audio || !isViewerReady) {
       return
     }
 
-    audio.muted = true
+    audio.pause()
+    audio.src = liveAtcStreamUrl
+    audio.muted = isAudioMutedRef.current
     audio.volume = DEFAULT_ATC_AUDIO_VOLUME
+    audio.load()
 
     const playPromise = audio.play()
     if (playPromise && typeof playPromise.catch === "function") {
       playPromise.catch(() => {})
     }
-  }, [])
+  }, [isViewerReady, liveAtcStreamUrl])
 
   async function handleAudioToggle() {
     const audio = audioRef.current
@@ -528,19 +570,23 @@ export default function FlightViewerClient() {
     setIsAudioMuted(true)
   }
 
+  function handleAirspaceChange(event) {
+    setSelectedAirspaceId(getAirspacePresetById(event.target.value).id)
+  }
+
   return (
     <div className="app-shell">
       <canvas
         ref={canvasRef}
         id="sceneCanvas"
-        aria-label="3D live Detroit-area flight viewer"
+        aria-label={`3D live ${selectedAirspacePreset.name} flight viewer`}
       />
 
       <aside ref={hudPanelRef} id="hudPanel" className="hud">
         <div className="hud-header">
           <div className="hud-title">
             <p className="eyebrow">Live ADS-B Sector</p>
-            <h1>Detroit Approach 134.3</h1>
+            <h1>{selectedAirspacePreset.displayName}</h1>
           </div>
           <div className="hud-header-controls">
             <button
@@ -640,6 +686,30 @@ export default function FlightViewerClient() {
           </div>
 
           <div className="panel-grid">
+            <section className="panel" aria-labelledby="airspace-heading">
+              <h2 id="airspace-heading">Airspace</h2>
+              <label className="setting-stack setting-stack-first" htmlFor="airspaceSelect">
+                <span className="setting-select-wrap">
+                  <span className="setting-select-icon" aria-hidden="true">
+                    ▾
+                  </span>
+                  <select
+                    ref={airspaceSelectRef}
+                    id="airspaceSelect"
+                    className="setting-select"
+                    value={selectedAirspaceId}
+                    onChange={handleAirspaceChange}
+                  >
+                    {AIRSPACE_PRESETS.map((preset) => (
+                      <option key={preset.id} value={preset.id}>
+                        {getAirspacePresetLabel(preset)}
+                      </option>
+                    ))}
+                  </select>
+                </span>
+              </label>
+            </section>
+
             <section className="panel" aria-labelledby="display-heading">
               <h2 id="display-heading">Display</h2>
               <label className="toggle-row">
@@ -713,7 +783,7 @@ export default function FlightViewerClient() {
       />
       <audio
         ref={audioRef}
-        src={LIVE_ATC_STREAM_URL}
+        src={liveAtcStreamUrl}
         autoPlay
         muted
         playsInline
