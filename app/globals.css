@@ -295,8 +295,7 @@ h1 {
 
 .airport-list,
 .flight-list,
-.control-list,
-.advisory-list {
+.control-list {
   margin: 0;
   padding: 0;
   list-style: none;
@@ -392,30 +391,6 @@ h1 {
   opacity: 0.45;
 }
 
-.advisory-banner {
-  display: grid;
-  gap: 8px;
-  padding: 14px 16px;
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(5, 16, 24, 0.5);
-}
-
-.advisory-banner.severity-critical {
-  border-color: rgba(255, 127, 122, 0.34);
-  background: linear-gradient(180deg, rgba(96, 31, 31, 0.72), rgba(40, 17, 19, 0.7));
-}
-
-.advisory-banner.severity-warning {
-  border-color: rgba(255, 207, 114, 0.28);
-  background: linear-gradient(180deg, rgba(77, 58, 24, 0.72), rgba(35, 25, 12, 0.68));
-}
-
-.advisory-banner.severity-info {
-  border-color: rgba(85, 214, 255, 0.24);
-  background: linear-gradient(180deg, rgba(18, 54, 72, 0.72), rgba(10, 23, 35, 0.68));
-}
-
 .advisory-pill {
   display: inline-flex;
   align-items: center;
@@ -428,56 +403,6 @@ h1 {
   font-weight: 800;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-}
-
-.advisory-title {
-  font-size: 1rem;
-  font-weight: 700;
-}
-
-.advisory-body {
-  margin: 0;
-  color: var(--text-soft);
-  line-height: 1.45;
-}
-
-.advisory-list {
-  display: grid;
-  gap: 10px;
-  margin-top: 12px;
-}
-
-.advisory-list li {
-  display: grid;
-  gap: 8px;
-  padding: 12px 13px;
-  border-radius: 14px;
-  background: rgba(3, 9, 15, 0.32);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-.advisory-list li.severity-critical {
-  border-color: rgba(255, 127, 122, 0.28);
-}
-
-.advisory-list li.severity-warning {
-  border-color: rgba(255, 207, 114, 0.2);
-}
-
-.advisory-list li.severity-info {
-  border-color: rgba(85, 214, 255, 0.18);
-}
-
-.advisory-card-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-.advisory-card-title {
-  font-size: 0.95rem;
-  font-weight: 700;
 }
 
 .hover-card {
@@ -500,13 +425,13 @@ h1 {
 
 .toast-alert {
   position: fixed;
-  right: 24px;
-  bottom: 22px;
+  right: 18px;
+  bottom: calc(18px + env(safe-area-inset-bottom, 0px));
   z-index: 4;
-  width: min(360px, calc(100vw - 32px));
+  width: min(420px, calc(100vw - 32px));
   display: grid;
-  gap: 8px;
-  padding: 14px 16px;
+  gap: 6px;
+  padding: 13px 14px;
   border-radius: 18px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(5, 16, 24, 0.88);
@@ -541,14 +466,23 @@ h1 {
 }
 
 .toast-title {
-  font-size: 1rem;
+  font-size: 0.94rem;
   font-weight: 700;
 }
 
 .toast-body {
   margin: 0;
   color: var(--text-soft);
-  line-height: 1.45;
+  font-size: 0.92rem;
+  line-height: 1.4;
+}
+
+.toast-meta {
+  margin: 2px 0 0;
+  color: rgba(238, 248, 253, 0.72);
+  font-size: 0.74rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .hover-title {

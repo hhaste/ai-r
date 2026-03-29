@@ -16,8 +16,6 @@ export default function FlightViewerClient() {
   const airportListRef = useRef(null)
   const flightListRef = useRef(null)
   const feedNoteRef = useRef(null)
-  const advisoryBannerRef = useRef(null)
-  const advisoryListRef = useRef(null)
   const hudPanelRef = useRef(null)
   const collapseButtonRef = useRef(null)
   const hoverDetailsToggleRef = useRef(null)
@@ -39,8 +37,6 @@ export default function FlightViewerClient() {
       airportList: airportListRef.current,
       flightList: flightListRef.current,
       feedNote: feedNoteRef.current,
-      advisoryBanner: advisoryBannerRef.current,
-      advisoryList: advisoryListRef.current,
       hudPanel: hudPanelRef.current,
       collapseButton: collapseButtonRef.current,
       hoverDetailsToggle: hoverDetailsToggleRef.current,
@@ -194,16 +190,6 @@ export default function FlightViewerClient() {
               </label>
             </section>
 
-            <section className="panel panel-wide" aria-labelledby="assist-heading">
-              <h2 id="assist-heading">AI Assist</h2>
-              <div
-                ref={advisoryBannerRef}
-                id="advisoryBanner"
-                className="advisory-banner severity-info"
-              />
-              <ul ref={advisoryListRef} id="advisoryList" className="advisory-list" />
-            </section>
-
             <section className="panel panel-wide" aria-labelledby="aircraft-heading">
               <h2 id="aircraft-heading">Active Aircraft</h2>
               <ol ref={flightListRef} id="flightList" className="flight-list" />
@@ -218,8 +204,9 @@ export default function FlightViewerClient() {
           </div>
 
           <p className="hint">
-            Aircraft refresh automatically. The live feed is proxied through the
-            Next.js server to avoid browser CORS issues.
+            Use Refresh for on-demand updates, or enable auto refresh from Display.
+            The live feed is proxied through the Next.js server to avoid browser
+            CORS issues.
           </p>
         </div>
       </aside>
