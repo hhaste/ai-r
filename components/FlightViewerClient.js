@@ -53,24 +53,6 @@ export default function FlightViewerClient() {
 
   return (
     <div className="app-shell">
-      <form
-        ref={flightSearchFormRef}
-        id="flightSearchForm"
-        className="flight-search"
-        role="search"
-      >
-        <input
-          ref={flightSearchInputRef}
-          id="flightSearchInput"
-          className="flight-search-input"
-          type="search"
-          placeholder="Search callsign or ICAO and press Enter"
-          autoComplete="off"
-          spellCheck="false"
-          aria-label="Search for a flight in view"
-        />
-      </form>
-
       <canvas
         ref={canvasRef}
         id="sceneCanvas"
@@ -93,6 +75,27 @@ export default function FlightViewerClient() {
             Collapse
           </button>
         </div>
+
+        <form
+          ref={flightSearchFormRef}
+          id="flightSearchForm"
+          className="flight-search"
+          role="search"
+        >
+          <span className="flight-search-icon" aria-hidden="true">
+            🔍
+          </span>
+          <input
+            ref={flightSearchInputRef}
+            id="flightSearchInput"
+            className="flight-search-input"
+            type="search"
+            placeholder="Search for an aircraft"
+            autoComplete="off"
+            spellCheck="false"
+            aria-label="Search for a flight in view"
+          />
+        </form>
 
         <div id="hudContent" className="hud-content">
           <div className="action-row">

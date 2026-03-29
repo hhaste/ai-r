@@ -48,26 +48,38 @@ body::before {
 }
 
 .flight-search {
-  position: fixed;
-  top: 18px;
-  left: 50%;
-  z-index: 2;
-  width: min(440px, calc(100vw - 32px));
-  transform: translateX(-50%);
-}
-
-.flight-search-input {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   width: 100%;
-  padding: 14px 18px;
+  margin-top: 26px;
+  padding: 0 18px;
   border: 1px solid rgba(142, 227, 255, 0.22);
   border-radius: 999px;
   background: rgba(6, 18, 28, 0.84);
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.26);
   backdrop-filter: blur(14px);
+}
+
+.flight-search-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  font-size: 0.95rem;
+  line-height: 1;
+}
+
+.flight-search-input {
+  width: 100%;
+  padding: 14px 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
   color: var(--text-main);
   font: inherit;
   font-size: 0.94rem;
-  text-align: center;
+  text-align: left;
 }
 
 .flight-search-input::placeholder {
@@ -77,9 +89,6 @@ body::before {
 .flight-search-input:focus {
   outline: none;
   border-color: rgba(154, 226, 255, 0.66);
-  box-shadow:
-    0 0 0 3px rgba(85, 214, 255, 0.14),
-    0 18px 40px rgba(0, 0, 0, 0.26);
 }
 
 .flight-search-input.search-input-error {
@@ -132,22 +141,18 @@ body::before {
 }
 
 .hud-content {
-  margin-top: 50px;
+  margin-top: 28px;
 }
 
 .hud.collapsed {
-  width: min(270px, calc(100vw - 32px));
+  width: min(460px, calc(100vw - 32px));
   max-height: none;
   overflow: hidden;
-  padding: 18px 18px 14px;
+  padding: 22px 22px 18px;
 }
 
 .hud.collapsed .hud-content {
   display: none;
-}
-
-.hud.collapsed h1 {
-  font-size: 1.45rem;
 }
 
 .eyebrow {
@@ -156,10 +161,6 @@ body::before {
   letter-spacing: 0.24em;
   text-transform: uppercase;
   color: var(--accent);
-}
-
-.hud.collapsed .eyebrow {
-  margin-bottom: 6px;
 }
 
 h1 {
@@ -595,10 +596,6 @@ h1 {
 }
 
 @media (max-width: 860px) {
-  .flight-search {
-    top: 14px;
-  }
-
   .hud {
     margin: 16px;
     width: auto;
@@ -628,5 +625,9 @@ h1 {
   .stats-grid {
     grid-template-columns: 1fr;
     display: grid;
+  }
+
+  .flight-search {
+    margin-top: 18px;
   }
 }
