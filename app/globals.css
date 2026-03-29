@@ -127,6 +127,10 @@ body::before {
   min-width: 0;
 }
 
+.hud-title h1 {
+  font-size: clamp(1.8rem, 3.5vw, 2.75rem);
+}
+
 .hud-content {
   margin-top: 14px;
 }

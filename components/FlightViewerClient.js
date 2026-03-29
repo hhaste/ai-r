@@ -153,7 +153,7 @@ export default function FlightViewerClient() {
             <div className="stat-card">
               <span className="stat-label">Sector</span>
               <strong ref={sectorNameRef} id="sectorName" className="stat-value">
-                KDET · KDTW · KFNT
+                Detroit Approach
               </strong>
             </div>
           </div>
