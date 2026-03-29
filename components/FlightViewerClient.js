@@ -107,7 +107,7 @@ export default function FlightViewerClient() {
               id="statusBadge"
               className="status-badge status-pending"
             >
-              Loading
+              Idle
             </span>
           </div>
 
@@ -175,7 +175,6 @@ export default function FlightViewerClient() {
                   ref={autoRefreshToggleRef}
                   id="autoRefreshToggle"
                   type="checkbox"
-                  defaultChecked
                 />
                 Enable auto refresh
               </label>
@@ -213,7 +212,7 @@ export default function FlightViewerClient() {
             <section className="panel panel-wide" aria-labelledby="notes-heading">
               <h2 id="notes-heading">Feed Notes</h2>
               <p ref={feedNoteRef} id="feedNote" className="feed-note">
-                Waiting for the first live traffic snapshot.
+                Press Refresh to load the first live traffic snapshot.
               </p>
             </section>
           </div>
