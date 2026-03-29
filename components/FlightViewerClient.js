@@ -16,6 +16,8 @@ export default function FlightViewerClient() {
   const airportListRef = useRef(null)
   const flightListRef = useRef(null)
   const feedNoteRef = useRef(null)
+  const flightSearchFormRef = useRef(null)
+  const flightSearchInputRef = useRef(null)
   const hudPanelRef = useRef(null)
   const collapseButtonRef = useRef(null)
   const hoverDetailsToggleRef = useRef(null)
@@ -37,6 +39,8 @@ export default function FlightViewerClient() {
       airportList: airportListRef.current,
       flightList: flightListRef.current,
       feedNote: feedNoteRef.current,
+      flightSearchForm: flightSearchFormRef.current,
+      flightSearchInput: flightSearchInputRef.current,
       hudPanel: hudPanelRef.current,
       collapseButton: collapseButtonRef.current,
       hoverDetailsToggle: hoverDetailsToggleRef.current,
@@ -51,6 +55,24 @@ export default function FlightViewerClient() {
 
   return (
     <div className="app-shell">
+      <form
+        ref={flightSearchFormRef}
+        id="flightSearchForm"
+        className="flight-search"
+        role="search"
+      >
+        <input
+          ref={flightSearchInputRef}
+          id="flightSearchInput"
+          className="flight-search-input"
+          type="search"
+          placeholder="Search callsign or ICAO and press Enter"
+          autoComplete="off"
+          spellCheck="false"
+          aria-label="Search for a flight in view"
+        />
+      </form>
+
       <canvas
         ref={canvasRef}
         id="sceneCanvas"

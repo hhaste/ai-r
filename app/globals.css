@@ -47,6 +47,46 @@ body::before {
   min-height: 100vh;
 }
 
+.flight-search {
+  position: fixed;
+  top: 18px;
+  left: 50%;
+  z-index: 2;
+  width: min(440px, calc(100vw - 32px));
+  transform: translateX(-50%);
+}
+
+.flight-search-input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 1px solid rgba(142, 227, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(6, 18, 28, 0.84);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.26);
+  backdrop-filter: blur(14px);
+  color: var(--text-main);
+  font: inherit;
+  font-size: 0.94rem;
+  text-align: center;
+}
+
+.flight-search-input::placeholder {
+  color: rgba(239, 247, 251, 0.52);
+}
+
+.flight-search-input:focus {
+  outline: none;
+  border-color: rgba(154, 226, 255, 0.66);
+  box-shadow:
+    0 0 0 3px rgba(85, 214, 255, 0.14),
+    0 18px 40px rgba(0, 0, 0, 0.26);
+}
+
+.flight-search-input.search-input-error {
+  border-color: rgba(255, 127, 122, 0.7);
+  color: #ffe6e4;
+}
+
 #sceneCanvas {
   position: absolute;
   inset: 0;
@@ -527,6 +567,10 @@ h1 {
 }
 
 @media (max-width: 860px) {
+  .flight-search {
+    top: 14px;
+  }
+
   .hud {
     margin: 16px;
     width: auto;
