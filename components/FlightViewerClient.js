@@ -21,6 +21,8 @@ export default function FlightViewerClient() {
   const hudPanelRef = useRef(null)
   const collapseButtonRef = useRef(null)
   const hoverDetailsToggleRef = useRef(null)
+  const autoRefreshToggleRef = useRef(null)
+  const autoRefreshRateInputRef = useRef(null)
   const hoverCardRef = useRef(null)
   const toastAlertRef = useRef(null)
 
@@ -42,6 +44,8 @@ export default function FlightViewerClient() {
       hudPanel: hudPanelRef.current,
       collapseButton: collapseButtonRef.current,
       hoverDetailsToggle: hoverDetailsToggleRef.current,
+      autoRefreshToggle: autoRefreshToggleRef.current,
+      autoRefreshRateInput: autoRefreshRateInputRef.current,
       hoverCard: hoverCardRef.current,
       toastAlert: toastAlertRef.current
     })
@@ -165,6 +169,29 @@ export default function FlightViewerClient() {
                   defaultChecked
                 />
                 Show aircraft hover details
+              </label>
+              <label className="toggle-row">
+                <input
+                  ref={autoRefreshToggleRef}
+                  id="autoRefreshToggle"
+                  type="checkbox"
+                  defaultChecked
+                />
+                Enable auto refresh
+              </label>
+              <label className="setting-row" htmlFor="autoRefreshRateInput">
+                <span className="setting-label">Refreshes / min</span>
+                <input
+                  ref={autoRefreshRateInputRef}
+                  id="autoRefreshRateInput"
+                  className="setting-input"
+                  type="number"
+                  min="1"
+                  max="60"
+                  step="1"
+                  defaultValue="2"
+                  inputMode="numeric"
+                />
               </label>
             </section>
 

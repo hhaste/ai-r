@@ -363,6 +363,35 @@ h1 {
   accent-color: var(--accent);
 }
 
+.setting-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 12px;
+  color: var(--text-soft);
+  line-height: 1.4;
+}
+
+.setting-label {
+  font-size: 0.9rem;
+}
+
+.setting-input {
+  width: 78px;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(142, 227, 255, 0.18);
+  background: rgba(5, 16, 24, 0.44);
+  color: var(--text-main);
+  font: inherit;
+  text-align: center;
+}
+
+.setting-input:disabled {
+  opacity: 0.45;
+}
+
 .advisory-banner {
   display: grid;
   gap: 8px;
