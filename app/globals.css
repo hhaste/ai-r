@@ -558,15 +558,8 @@ h1 {
   z-index: 4;
   width: min(420px, calc(100vw - 32px));
   display: grid;
-  gap: 6px;
-  padding: 13px 14px;
-  border-radius: 18px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(5, 16, 24, 0.88);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.34);
-  pointer-events: auto;
-  cursor: pointer;
+  gap: 10px;
+  pointer-events: none;
   opacity: 1;
   visibility: visible;
   transform: translateY(0);
@@ -580,17 +573,30 @@ h1 {
   transform: translateY(12px);
 }
 
-.toast-alert.severity-critical {
+.toast-card {
+  display: grid;
+  gap: 6px;
+  padding: 13px 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(5, 16, 24, 0.88);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.34);
+  pointer-events: auto;
+  cursor: pointer;
+}
+
+.toast-card.severity-critical {
   border-color: rgba(255, 127, 122, 0.36);
   background: linear-gradient(180deg, rgba(96, 31, 31, 0.88), rgba(40, 17, 19, 0.86));
 }
 
-.toast-alert.severity-warning {
+.toast-card.severity-warning {
   border-color: rgba(255, 207, 114, 0.28);
   background: linear-gradient(180deg, rgba(77, 58, 24, 0.86), rgba(35, 25, 12, 0.84));
 }
 
-.toast-alert.severity-info {
+.toast-card.severity-info {
   border-color: rgba(85, 214, 255, 0.24);
   background: linear-gradient(180deg, rgba(18, 54, 72, 0.86), rgba(10, 23, 35, 0.84));
 }
