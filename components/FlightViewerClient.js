@@ -11,7 +11,6 @@ export default function FlightViewerClient() {
   const statusBadgeRef = useRef(null)
   const flightCountRef = useRef(null)
   const lastUpdatedRef = useRef(null)
-  const airportListRef = useRef(null)
   const flightListRef = useRef(null)
   const feedNoteRef = useRef(null)
   const flightSearchFormRef = useRef(null)
@@ -33,7 +32,6 @@ export default function FlightViewerClient() {
       statusBadge: statusBadgeRef.current,
       flightCount: flightCountRef.current,
       lastUpdated: lastUpdatedRef.current,
-      airportList: airportListRef.current,
       flightList: flightListRef.current,
       feedNote: feedNoteRef.current,
       flightSearchForm: flightSearchFormRef.current,
@@ -143,11 +141,6 @@ export default function FlightViewerClient() {
           </div>
 
           <div className="panel-grid">
-            <section className="panel" aria-labelledby="airports-heading">
-              <h2 id="airports-heading">Airports</h2>
-              <ul ref={airportListRef} id="airportList" className="airport-list" />
-            </section>
-
             <section className="panel" aria-labelledby="display-heading">
               <h2 id="display-heading">Display</h2>
               <label className="toggle-row">
